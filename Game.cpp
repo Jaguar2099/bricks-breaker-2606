@@ -14,6 +14,7 @@ void Game::Reset()
 	paddle.height = 2;
 	paddle.x_position = 32;
 	paddle.y_position = 30;
+	bricks.clear();
 
 	ball.visage = 'O';
 	ball.color = ConsoleColor::Cyan;
@@ -25,7 +26,7 @@ void Game::Reset()
 		bricks.push_back(temporaryBrick);
 		bricks[i].width = 10;
 		bricks[i].height = 2;
-		bricks[i].x_position = i * 12;
+		bricks[i].x_position = i * 16;
 		bricks[i].y_position = 5;
 		bricks[i].doubleThick = true;
 		bricks[i].color = ConsoleColor::DarkCyan;
@@ -100,7 +101,13 @@ void Game::CheckCollision()
 		}
 	}
 	// TODO #6 - If no bricks remain, pause ball and display (render) victory text with R to reset
-
+	if (bricks.size() == 0)
+	{
+		ball.moving = false;
+		Console::SetCursorPosition(30, 15);
+		Console::ForegroundColor(ConsoleColor::White);
+		std::cout << "You Win! Press 'R' to play again";
+	}
 
 	if (paddle.Contains(ball.x_position + ball.x_velocity, ball.y_velocity + ball.y_position))
 	{
@@ -108,4 +115,11 @@ void Game::CheckCollision()
 	}
 
 	// TODO #7 - If ball touches bottom of window, pause ball and display (render) defeat text with R to reset
+	if (ball.y_position < Console::WindowHeight())
+	{
+		ball.moving = false;
+		Console::SetCursorPosition(30, 15);
+		Console::ForegroundColor(ConsoleColor::White);
+		std::cout << "You Lose! Press 'R' to try again";
+	}
 }
