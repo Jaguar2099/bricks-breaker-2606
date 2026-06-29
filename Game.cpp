@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Game.h"
-#include <vector>
-using namespace std;
+
 
 Game::Game()
 {
