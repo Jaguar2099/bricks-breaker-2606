@@ -81,6 +81,18 @@ void Game::Render() const
 		bricks[i].Draw();
 	}
 
+	if (bricks.size() == 0) {
+		Console::SetCursorPosition(30, 15);
+		Console::ForegroundColor(ConsoleColor::White);
+		std::cout << "You Win! Press 'R' to play again";
+	}
+
+	if (ball.y_position > Console::WindowHeight()){
+		Console::SetCursorPosition(30, 15);
+		Console::ForegroundColor(ConsoleColor::White);
+		std::cout << "You Lose! Press 'R' to try again";
+	}
+
 	Console::Lock(false);
 }
 
@@ -105,9 +117,6 @@ void Game::CheckCollision()
 	if (bricks.size() == 0)
 	{
 		ball.moving = false;
-		Console::SetCursorPosition(30, 15);
-		Console::ForegroundColor(ConsoleColor::White);
-		std::cout << "You Win! Press 'R' to play again";
 	}
 
 	if (paddle.Contains(ball.x_position + ball.x_velocity, ball.y_velocity + ball.y_position))
@@ -119,8 +128,5 @@ void Game::CheckCollision()
 	if (ball.y_position > Console::WindowHeight())
 	{
 		ball.moving = false;
-		Console::SetCursorPosition(30, 15);
-		Console::ForegroundColor(ConsoleColor::White);
-		std::cout << "You Lose! Press 'R' to try again";
 	}
 }
