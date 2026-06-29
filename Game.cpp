@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
+#include <vector>
+using namespace std;
 
 Game::Game()
 {
@@ -115,7 +117,7 @@ void Game::CheckCollision()
 	}
 
 	// TODO #7 - If ball touches bottom of window, pause ball and display (render) defeat text with R to reset
-	if (ball.y_position < Console::WindowHeight())
+	if (ball.y_position > Console::WindowHeight())
 	{
 		ball.moving = false;
 		Console::SetCursorPosition(30, 15);
